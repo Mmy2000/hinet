@@ -21,7 +21,7 @@ const Hero = () => {
       {/* Content */}
       <div className="relative z-10 container mx-auto px-6 md:px-12">
         <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-          Hi Net
+          Hinet Soft
         </h1>
         <div className="w-20 h-1 bg-gradient-to-r from-blue-400 to-blue-800 mb-6"></div>
         <p className="text-lg md:text-xl text-white max-w-2xl mb-6 leading-relaxed">
