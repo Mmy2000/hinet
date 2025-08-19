@@ -5,12 +5,19 @@ import Services from "@/components/Services.tsx";
 import WhyUs from "@/components/WhyUs";
 
 export default function Home() {
+
+  
   return (
     <>
-        <Hero/>
-        <AboutSection/>
-        <WhyUs/>
-        <Services/>
+      <Hero
+        coverImage="/hero-bg.jpg"
+        title="Hinet Soft"
+        description="A software company that provides website design and app design to achieve the goals of your project."
+        showButton={true}
+      />
+      <AboutSection />
+      <WhyUs />
+      <Services />
     </>
   );
 }

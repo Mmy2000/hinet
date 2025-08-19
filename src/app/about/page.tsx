@@ -1,4 +1,3 @@
-import ContactPage from '@/components/ContactPage';
 import Hero from '@/components/Hero';
 import React from 'react'
 
@@ -7,11 +6,10 @@ const page = () => {
     <>
       <Hero
         coverImage="/hero-bg.jpg"
-        title="Contact Us"
+        title="About Us"
         description="A software company that provides website design and app design to achieve the goals of your project."
-        showButton={false}
+        showButton={true}
       />
-      <ContactPage/>
     </>
   );
 }

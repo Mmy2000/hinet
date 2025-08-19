@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { ThemeProvider } from "./providers/theme-provider";
 import { Recursive } from "next/font/google";
+import { Toaster } from "sonner";
 
 const recursive = Recursive({ subsets: ["latin"] });
 
@@ -31,6 +32,18 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <Toaster
+            position="bottom-right"
+            theme="dark"
+            toastOptions={{
+              duration: 4000,
+              style: {
+                padding: "1rem",
+                fontSize: "0.95rem",
+                fontWeight: "500",
+              },
+            }}
+          />
           <Navbar />
           {children}
         </ThemeProvider>
