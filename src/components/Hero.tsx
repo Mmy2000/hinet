@@ -12,6 +12,8 @@ const Hero: React.FC<HeroProps> = ({
   title,
   description,
   showButton = true,
+  heroButtonLink ,
+  heroButtonText,
   sectionType = "default",
 }) => {
   return (
@@ -37,9 +39,9 @@ const Hero: React.FC<HeroProps> = ({
         </p>
 
         {showButton && (
-          <Link href="/contact">
+          <Link href={heroButtonLink || "/contact"} >
             <Button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg px-6 py-3">
-              Contact Us <PhoneCall className="ml-2 h-4 w-4" />
+              {heroButtonText} <PhoneCall className="ml-2 h-4 w-4" />
             </Button>
           </Link>
         )}

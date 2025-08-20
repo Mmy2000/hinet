@@ -4,4 +4,6 @@ export interface HeroProps {
   description: string;
   showButton?: boolean;
   sectionType?: string;
+  heroButtonLink?: string;
+  heroButtonText?: string;
 }

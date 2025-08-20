@@ -9,6 +9,9 @@ const page = () => {
         title="Blog"
         description="A software company that provides website design and app design to achieve the goals of your project."
         showButton={true}
+        heroButtonLink="/contact"
+        heroButtonText="Contact Us"
+        sectionType="blog"
       />
     </>
   );

@@ -32,7 +32,7 @@ export default function ContactPage() {
   async function onSubmit(data: ContactFormData) {
     setLoading(true);
     try {
-      await sendContact(data);
+      const res = await sendContact(data);      
       toast.success("Message Sent, We’ll get back to you shortly.");
       reset(); // clear form
     } catch (error: any) {

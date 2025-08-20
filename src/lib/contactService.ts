@@ -8,7 +8,7 @@ export async function sendContact(data: {
   message: string;
 }) {
   return await apiServiceCall({
-    url: "api/contacts",
+    url: "/api/contacts",
     method: "POST",
     body: { data }, // Strapi requires { data: {...} }
   });
