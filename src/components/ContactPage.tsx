@@ -13,10 +13,15 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { sendContact } from "@/lib/contactService";
 import { contactSchema } from "@/schema/contactSchema";
+import { ContactData } from "@/interfaces/page";
 
 type ContactFormData = z.infer<typeof contactSchema>;
 
-export default function ContactPage() {
+const ContactPage:React.FC<ContactData> = ({
+  introText ,
+  introTitle,
+  introImage 
+})=> {
   const [loading, setLoading] = useState(false);
 
   // ✅ react-hook-form with zod validation
@@ -57,13 +62,10 @@ export default function ContactPage() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <h2 className="text-4xl font-bold mb-4">Contact Us</h2>
-          <p className="max-w-md">
-            Let us be your partners in success. If you have any inquiries or
-            need further information, feel free to reach out to us.
-          </p>
+          <h2 className="text-4xl font-bold mb-4">{introTitle}</h2>
+          <p className="max-w-md">{introText}</p>
           <img
-            src="/contact_left_side.svg"
+            src={introImage || "/contact_left_side.svg"}
             alt="Contact Illustration"
             className="w-full mx-auto"
           />
@@ -171,3 +173,6 @@ export default function ContactPage() {
     </section>
   );
 }
+
+
+export default ContactPage;

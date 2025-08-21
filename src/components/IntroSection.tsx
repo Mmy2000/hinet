@@ -2,18 +2,12 @@ import React from 'react'
 import MaxWidthWrapper from './MaxWidthWrapper'
 import { Button } from './ui/button';
 import Link from 'next/link';
-import VisualIdentitySection from './VisualIdentitySection';
+import { IntroSectionData } from "@/interfaces/page";
 
-interface IData {
-  introText: string;
-  introButtonText: string;
-  introButtonLink: string;
-}
-
-const IntroSection: React.FC<IData> = ({
-    introText,
-    introButtonText,
-    introButtonLink ,
+const IntroSection: React.FC<IntroSectionData> = ({
+  introText,
+  introButtonText,
+  introButtonLink,
 }) => {
   return (
     <>

@@ -7,3 +7,15 @@ export interface HeroProps {
   heroButtonLink?: string;
   heroButtonText?: string;
 }
+
+export interface ContactData {
+  introText: string;
+  introTitle: string;
+  introImage: string;
+}
+
+export interface IntroSectionData {
+  introText: string;
+  introButtonText: string;
+  introButtonLink: string;
+}
