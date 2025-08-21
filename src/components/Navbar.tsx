@@ -7,7 +7,8 @@ import { Globe, Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ModeToggle } from "./ModeToggle";
 import { LanguageSelect } from "./LanguageSelect";
-
+import { useSiteSettings } from "@/app/context/SiteSettingsContext";
+import Image from "next/image";
 
 const navItems = [
   { label: "Home", href: "/" },
@@ -21,6 +22,9 @@ const navItems = [
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
+  const { settings, loading } = useSiteSettings();
+  const logo = process.env.NEXT_PUBLIC_API_URL + settings?.navbar?.logo?.url;  
+  
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,7 +46,7 @@ const Navbar = () => {
       <div className="container mx-auto flex items-center justify-between px-4 py-3 md:py-2">
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-2">
-          <img src="/logo.svg" alt="Logo" className="h-14 w-auto" />
+          <img src={loading ? 'logo.svg' : logo} alt="Logo" className="h-14 w-auto" />
         </Link>
 
         {/* Desktop Nav */}
@@ -61,7 +65,11 @@ const Navbar = () => {
         {/* Right Section */}
         <div className="hidden md:flex items-center space-x-4">
           <Button className="bg-blue-500 hover:bg-blue-600 dark:text-white">
-            <Link href="/contact">Request Appointment</Link>
+            <Link
+              href={loading ? "/contact" : settings?.navbar?.navbarButtonLink}
+            >
+              {loading ? "Contact Us" : settings?.navbar?.navbarTextButton}
+            </Link>
           </Button>
           <LanguageSelect />
           <ModeToggle scrolled={scrolled} />
@@ -86,8 +94,17 @@ const Navbar = () => {
                     {item.label}
                   </Link>
                 ))}
-                <Button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg">
-                  Request Appointment
+
+                <Button className="bg-blue-500 hover:bg-blue-600 dark:text-white">
+                  <Link
+                    href={
+                      loading ? "/contact" : settings?.navbar?.navbarButtonLink
+                    }
+                  >
+                    {loading
+                      ? "Contact Us"
+                      : settings?.navbar?.navbarTextButton}
+                  </Link>
                 </Button>
               </nav>
             </SheetContent>

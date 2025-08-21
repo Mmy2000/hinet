@@ -1,25 +1,14 @@
 
-
 import Hero from '@/components/Hero';
 import IntroSection from '@/components/IntroSection';
 import VisualIdentitySection from '@/components/VisualIdentitySection';
+import { fetchServicePage } from '@/lib/serviceApi';
 import apiServiceCall from '@/services/service';
 import React from 'react'
 
-  const points = [
-    { id: 1, text: "Logo Design" },
-    { id: 2, text: "Brand Guidelines" },
-    { id: 3, text: "Stationery Design" },
-    { id: 4, text: "Social Media Branding" },
-    { id: 5, text: "Packaging Design" },
-  ];
-
 const page = async () => {
   // Fetch data from Strapi
-  const data = await apiServiceCall({
-    url: "/api/service-page?populate[services][populate]=*",
-    method: "GET",
-  });
+  const data = await fetchServicePage();    
 
   const coverImageApi = await apiServiceCall({
     url: "/api/service-page?populate=*",
@@ -48,18 +37,23 @@ const page = async () => {
         introButtonText={data?.data?.introButtonText}
       />
 
-      {services.map((service: any) => (
+      {services.map((service: any, idx: number) => (
         <VisualIdentitySection
           key={service.id}
           title={service.title}
           description={service.description}
           points={
-            points?.map((p: any, i: number) => ({
+            service.points?.map((p: any, i: number) => ({
               id: i + 1,
-              text: p.text,
+              title: p.title,
+              icon: p.icon
+                ? `${process.env.NEXT_PUBLIC_API_URL}${p.icon?.url}`
+                : undefined,
             })) || []
           }
           image={`${process.env.NEXT_PUBLIC_API_URL}${service.image?.url}`}
+          icon={`${process.env.NEXT_PUBLIC_API_URL}${service.icon?.url}`}
+          variant={idx % 2 === 0 ? "background" : "transparent"} // alternate or manual
         />
       ))}
     </>

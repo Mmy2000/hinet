@@ -1,26 +1,35 @@
 import AboutSection from "@/components/AboutSection";
 import Hero from "@/components/Hero";
-import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import Services from "@/components/Services";
 import WhyUs from "@/components/WhyUs";
+import { fetchServicePage } from "@/lib/serviceApi";
+import { fetchSiteSettingsData } from "@/lib/siteSettingsApi";
 
-export default function Home() {
+export default async function Home() {
 
-  
+  const data = await fetchServicePage();    
+  const services = data?.data?.services || [];
+
+  const settingsData = await fetchSiteSettingsData();
+  const heroData = settingsData?.data?.homePageHeroSection;
+  const coverImage = process.env.NEXT_PUBLIC_API_URL + heroData?.coverImage?.url;  
+
   return (
     <>
       <Hero
-        coverImage="/hero-bg.jpg"
-        title="Hinet Soft"
-        description="A software company that provides website design and app design to achieve the goals of your project."
-        showButton={true}
-        heroButtonLink="/contact"
-        heroButtonText="Contact Us"
+        coverImage={coverImage}
+        title={heroData?.title}
+        description={heroData?.subtitle}
+        showButton={
+          heroData?.heroButtonText && heroData?.heroButtonLink ? true : false
+        }
+        heroButtonLink={heroData?.heroButtonLink}
+        heroButtonText={heroData?.heroButtonText}
         sectionType="home"
       />
       <AboutSection />
       <WhyUs />
-      <Services />
+      <Services services={services} />
     </>
   );
 }

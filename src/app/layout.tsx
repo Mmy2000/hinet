@@ -1,9 +1,12 @@
+
 import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { ThemeProvider } from "./providers/theme-provider";
 import { Recursive } from "next/font/google";
 import { Toaster } from "sonner";
+import Footer from "@/components/Footer";
+import { SiteSettingsProvider } from "./context/SiteSettingsContext";
 
 const recursive = Recursive({ subsets: ["latin"] });
 
@@ -44,8 +47,11 @@ export default function RootLayout({
               },
             }}
           />
-          <Navbar />
-          {children}
+          <SiteSettingsProvider>
+            <Navbar />
+            {children}
+            <Footer />
+          </SiteSettingsProvider>
         </ThemeProvider>
       </body>
     </html>

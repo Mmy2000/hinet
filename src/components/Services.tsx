@@ -6,39 +6,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Button } from "./ui/button";
+import { Service } from "@/interfaces/page";
 
-const services = [
-  {
-    image: "/computer.svg",
-    title: "Designing and Developing Administrative and Accounting system",
-    description:
-      "HiNet soft offers comprehensive analysis and design of integrated administrative systems to enhance efficiency and streamline operations.",
-    link: "/services/admin-accounting",
-  },
-  {
-    image: "/code.svg",
-    title: "Designing and Developing Mobile Applications",
-    description:
-      "HiNet soft offers smartphone app design and development with unique design and cutting-edge technology, publishing on Android and iOS stores.",
-    link: "/services/mobile-apps",
-  },
-  {
-    image: "/websvg.svg",
-    title: "Designing and Developing Websites",
-    description:
-      "Your website is your interface, and HiNet soft is interested in adding a distinctive character that reflects your project in a decent way.",
-    link: "/services/websites",
-  },
-  {
-    image: "/draw.svg",
-    title: "Designing Visual Identity",
-    description:
-      "Visual identity is one of the most important factors for the success of projects, and HiNet is committed to creating a unique identity that reflects professionalism and distinguishes you from competitors.",
-    link: "/services/visual-identity",
-  },
-];
-
-export default function Services() {
+const Services: React.FC<{ services: Service[] }> = ({
+  services = [],
+}: {
+  services: Service[];
+}) => {
+  
   return (
     <section className="container mx-auto py-16 px-6">
       <motion.h2
@@ -61,11 +36,11 @@ export default function Services() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.2 }}
           >
-            <Card className=" border-none shadow-none transition duration-300 h-full text-blue-800 bg-blue-50 dark:bg-transparent ">
+            <Card className=" border-none shadow-none transition duration-300 h-full text-blue-800 bg-blue-50 dark:bg-zinc-900 ">
               <CardContent className="px-6 py-4 flex flex-col h-full">
                 <div className="flex items-start gap-4">
                   <Image
-                    src={service.image}
+                    src={`${process.env.NEXT_PUBLIC_API_URL}${service.icon?.url}`}
                     alt={service.title}
                     width={100}
                     height={100}
@@ -79,10 +54,12 @@ export default function Services() {
                       {service.description}
                     </p>
                     <Link
-                      href={service.link}
+                      href='/services'
                       className="text-blue-800 font-semibold inline-flex items-center gap-1"
                     >
-                      <Button className="text-blue-800" variant={'link'}>Read More →</Button>
+                      <Button className="text-blue-800" variant={"link"}>
+                        Read More →
+                      </Button>
                     </Link>
                   </div>
                 </div>
@@ -93,4 +70,6 @@ export default function Services() {
       </div>
     </section>
   );
-}
+};
+
+export default Services;
