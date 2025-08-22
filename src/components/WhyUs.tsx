@@ -4,52 +4,30 @@
 import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { motion } from "framer-motion";
+import { WyUsData } from "@/interfaces/page";
 
-const features = [
-  {
-    image: "/phone.svg", // put your image in public/icons/
-    title: "Communication",
-    description:
-      "We value continuous and direct communication with our clients, so we provide you with a support team to assist you and answer your inquiries 24 hours a day.",
-  },
-  {
-    image: "/quality-B8-kDydz.svg",
-    title: "Quality",
-    description:
-      "We always strive to provide you with the highest levels of quality in our services, with a focus on details and outstanding performance.",
-  },
-  {
-    image: "/solutions-BJ_tBbIb.svg",
-    title: "Innovative solutions",
-    description:
-      "We excel in the field of design and development through the innovative solutions we offer, ensuring our projects are of the highest efficiency and quality.",
-  },
-  {
-    image: "/alarm.svg",
-    title: "Deadline Commitment",
-    description:
-      "We always commit to delivering projects according to the specified timeline to ensure that your needs are met in a timely manner.",
-  },
-];
-
-export default function WhyUs() {
+const WhyUs: React.FC<WyUsData> = ({
+  introTitle,
+    introDescription,
+    items
+}) => {
+  
   return (
-    <section className="container mx-auto py-4 px-6 text-center">
+    <section className="container mx-auto py-4 px-6 text-center my-8">
       <motion.h2
         className="text-3xl md:text-4xl font-bold mb-4"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        Why Us?
+        {introTitle}
       </motion.h2>
-      <p className="dark:text-gray-300 max-w-2xl mx-auto mb-12">
-        Designing your project with HiNet will certainly be different, and it
-        will also be the reason for you to lead in your field.
+      <p className="dark:text-gray-300 max-w-2xl mx-auto ">
+        {introDescription}
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        {features.map((feature, index) => (
+        {items.map((item, index) => (
           <motion.div
             key={index}
             initial={{ opacity: 0, y: 40 }}
@@ -61,16 +39,16 @@ export default function WhyUs() {
                 {/* Image instead of icon */}
                 <div className="flex items-center justify-center mb-4">
                   <Image
-                    src={feature.image}
-                    alt={feature.title}
+                    src={process.env.NEXT_PUBLIC_API_URL + item.image.url}
+                    alt={item.title}
                     width={10}
                     height={10}
                     className="object-contain w-full"
                   />
                 </div>
-                <h3 className="font-semibold text-lg mb-2">{feature.title}</h3>
+                <h3 className="font-semibold text-lg mb-2">{item.title}</h3>
                 <p className="dark:text-gray-300 text-sm">
-                  {feature.description}
+                  {item.description}
                 </p>
               </CardContent>
             </Card>
@@ -79,4 +57,6 @@ export default function WhyUs() {
       </div>
     </section>
   );
-}
+};
+
+export default WhyUs;

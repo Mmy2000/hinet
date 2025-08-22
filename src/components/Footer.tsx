@@ -5,19 +5,20 @@ import Link from "next/link";
 import Image from "next/image";
 import { FaFacebook, FaLinkedin, FaEnvelope } from "react-icons/fa";
 import { useSiteSettings } from "@/app/context/SiteSettingsContext";
+import { fetchServicePage } from "@/lib/serviceApi";
 
 const Footer = () => {
 
     const { settings, loading } = useSiteSettings();
     const logo = process.env.NEXT_PUBLIC_API_URL + settings?.footer?.logo?.url;    
-
+            
   return (
     <footer className="bg-blue-50 dark:bg-transparent py-10">
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 px-6">
         {/* Logo + Description */}
         <div>
           <Image
-            src={loading ? 'logo.svg' : logo} // 👈 replace with your logo path
+            src={loading ? "logo.svg" : logo} // 👈 replace with your logo path
             alt="Hi Net Soft Logo"
             width={80}
             height={60}
@@ -27,15 +28,32 @@ const Footer = () => {
             {settings?.footer?.description}
           </p>
           <div className="flex items-center gap-4 mt-4">
-            <Link href="#">
-              <FaFacebook className="text-2xl hover:text-gray-200 transition" />
-            </Link>
-            <Link href="#">
-              <FaLinkedin className="text-2xl hover:text-gray-200 transition" />
-            </Link>
-            <Link href="#">
-              <FaEnvelope className="text-2xl hover:text-gray-200 transition" />
-            </Link>
+            <a
+              href={settings?.footer?.facebookLink || "#"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-3 bg-blue-600 rounded-full text-white shadow-md hover:scale-110 hover:shadow-lg transition-all duration-300"
+            >
+              <FaFacebook className="text-xl" />
+            </a>
+
+            <a
+              href={settings?.footer?.linkedinLink || "#"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-3 bg-blue-500 rounded-full text-white shadow-md hover:scale-110 hover:shadow-lg transition-all duration-300"
+            >
+              <FaLinkedin className="text-xl" />
+            </a>
+
+            <a
+              href={`mailto:${settings?.footer?.gmail || "example@gmail.com"}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-3 bg-red-500 rounded-full text-white shadow-md hover:scale-110 hover:shadow-lg transition-all duration-300"
+            >
+              <FaEnvelope className="text-xl" />
+            </a>
           </div>
         </div>
 

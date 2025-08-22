@@ -9,11 +9,8 @@ import {
   ReactNode,
 } from "react";
 import { fetchSiteSettingsData } from "@/lib/siteSettingsApi";
+import {  SiteSettingsContextProps } from "@/interfaces/page";
 
-interface SiteSettingsContextProps {
-  settings: any;
-  loading: boolean;
-}
 
 const SiteSettingsContext = createContext<SiteSettingsContextProps>({
   settings: null,
@@ -29,6 +26,7 @@ export const SiteSettingsProvider = ({ children }: { children: ReactNode }) => {
       try {
         const response = await fetchSiteSettingsData();
         setSettings(response?.data || null);
+        
       } catch (error) {
         console.error("Error fetching site settings:", error);
       } finally {

@@ -52,3 +52,34 @@ export interface Service {
   icon?: Media;
   points?: Point[];
 }
+
+export interface AboutSectionData {
+  title: string;
+  description: string;
+  image: string;
+  showButton?:boolean
+}
+
+export interface CEOSectionData {
+  name: string;
+  about_ceo: string;
+  ceo_image: string;
+  section_background: string;
+}
+
+export interface whyUsItems {
+    title: string;
+    description: string;
+    image: Media;
+}
+
+export interface WyUsData {
+  introTitle: string;
+  introDescription: string;
+  items: whyUsItems[];
+}
+
+export interface SiteSettingsContextProps {
+  settings: any;
+  loading: boolean;
+}

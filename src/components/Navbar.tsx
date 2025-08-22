@@ -3,12 +3,13 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Globe, Menu } from "lucide-react";
+import {  Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ModeToggle } from "./ModeToggle";
 import { LanguageSelect } from "./LanguageSelect";
 import { useSiteSettings } from "@/app/context/SiteSettingsContext";
-import Image from "next/image";
+import { usePathname } from "next/navigation";
+
 
 const navItems = [
   { label: "Home", href: "/" },
@@ -21,6 +22,7 @@ const navItems = [
 ];
 
 const Navbar = () => {
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const { settings, loading } = useSiteSettings();
   const logo = process.env.NEXT_PUBLIC_API_URL + settings?.navbar?.logo?.url;  
@@ -46,20 +48,31 @@ const Navbar = () => {
       <div className="container mx-auto flex items-center justify-between px-4 py-3 md:py-2">
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-2">
-          <img src={loading ? 'logo.svg' : logo} alt="Logo" className="h-14 w-auto" />
+          <img
+            src={loading ? "logo.svg" : logo}
+            alt="Logo"
+            className="h-14 w-auto"
+          />
         </Link>
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex space-x-6 text-sm font-medium">
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="hover:text-blue-600 transition-colors"
-            >
-              {item.label}
-            </Link>
-          ))}
+          {navItems.map((item) => {
+            const isActive = pathname === item.href;
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`transition-colors ${
+                  isActive
+                    ? "text-blue-600 font-semibold border-b-2 border-blue-600"
+                    : "hover:text-blue-600"
+                }`}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
         </nav>
 
         {/* Right Section */}
@@ -85,15 +98,22 @@ const Navbar = () => {
             </SheetTrigger>
             <SheetContent side="right" className="p-6">
               <nav className="flex flex-col space-y-4">
-                {navItems.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className="hover:text-blue-600 transition-colors"
-                  >
-                    {item.label}
-                  </Link>
-                ))}
+                {navItems.map((item) => {
+                  const isActive = pathname === item.href;
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className={`transition-colors ${
+                        isActive
+                          ? "text-blue-600 font-semibold"
+                          : "hover:text-blue-600"
+                      }`}
+                    >
+                      {item.label}
+                    </Link>
+                  );
+                })}
 
                 <Button className="bg-blue-500 hover:bg-blue-600 dark:text-white">
                   <Link
