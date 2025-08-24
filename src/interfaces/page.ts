@@ -83,3 +83,19 @@ export interface SiteSettingsContextProps {
   settings: any;
   loading: boolean;
 }
+
+export interface BlogDataProps{
+  title:string;
+  cover_description:string;
+  image:string;
+  createdAt:string;
+  id:string
+}
+
+export interface BlogDetailsProps{
+  title:string;
+  cover_description?:string;
+  description:string;
+  image:string,
+  createdAt:string,
+}
