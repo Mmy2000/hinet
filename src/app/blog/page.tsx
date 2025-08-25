@@ -6,12 +6,12 @@ import React from 'react'
 
 const page = async () => {
   const heroSectionData = await fetchHeroBlogHeroSectionData()
-  const blogData = await fetchBlogData()    
+  const blogData = await fetchBlogData()      
   
   return (
     <>
       <Hero
-        coverImage="/hero-bg.jpg"
+        coverImage={`${process.env.NEXT_PUBLIC_API_URL}${heroSectionData?.data?.heroBackground?.url}`}
         title={heroSectionData?.data?.heroTitle}
         description={heroSectionData?.data?.heroSubtitle}
         showButton={

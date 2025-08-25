@@ -99,3 +99,27 @@ export interface BlogDetailsProps{
   image:string,
   createdAt:string,
 }
+
+
+export interface ClientPoint {
+  id: number;
+  name: string;
+}
+
+export interface ClientPartnershipProps {
+  title: string;
+   description: string;
+   points?: ClientPoint[];
+   image:string
+}
+
+export interface ClientItemProps {
+  id:string;
+  image:Media
+}
+
+export interface ClientsProps{
+  introText:string;
+  introSubtitle:string;
+  clientItems : ClientItemProps[]
+}
