@@ -1,18 +1,32 @@
 import Hero from '@/components/Hero';
+import ProductsList from '@/components/ProductsList';
+import { fetchProjectsData, fetchProjectsPageData } from '@/lib/projectsApi';
 import React from 'react'
 
-const page = () => {
+const page = async () => {
+  const pageData = await fetchProjectsPageData()
+  const productsData = await fetchProjectsData()
+    
   return (
     <>
       <Hero
-        coverImage="/hero-bg.jpg"
-        title="Our Products"
-        description="A software company that provides website design and app design to achieve the goals of your project."
-        showButton={true}
-        heroButtonLink="/contact"
-        heroButtonText="Contact Us"
+        coverImage={
+          process.env.NEXT_PUBLIC_API_URL +
+          pageData?.data?.heroSection?.heroBackground?.url
+        }
+        title={pageData?.data?.heroSection?.heroTitle}
+        description={pageData?.data?.heroSection?.heroSubtitle}
+        showButton={
+          pageData?.data?.heroSection?.heroButtonLink &&
+          pageData?.data?.heroSection?.heroButtonText
+            ? true
+            : false
+        }
+        heroButtonLink={pageData?.data?.heroSection?.heroButtonLink}
+        heroButtonText={pageData?.data?.heroSection?.heroButtonText}
         sectionType="products"
       />
+      <ProductsList projects={productsData?.data} />
     </>
   );
 }

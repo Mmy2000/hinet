@@ -123,3 +123,44 @@ export interface ClientsProps{
   introSubtitle:string;
   clientItems : ClientItemProps[]
 }
+
+
+export interface ProjectCategory {
+  id: string;
+  name: string;
+}
+
+export interface Project {
+  id: string;
+  documentId: string;
+  title: string;
+  coverDescription: string;
+  image: { url: string };
+  website_logo: { url: string };
+  website_url: string;
+  priority: number;
+  project_category?: ProjectCategory;
+}
+
+export interface ProductsListProps {
+  projects: Project[];
+}
+
+export interface ProjectDetails {
+  id: string;
+  documentId: string;
+  title: string;
+  coverDescription: string;
+  description:string;
+  image: { url: string };
+  website_logo: { url: string };
+  website_url: string;
+  priority: number;
+  project_category?: ProjectCategory;
+  createdAt:string;
+  updatedAt:string
+}
+
+export interface ProjectDetailsProps{
+  project:ProjectDetails
+}
