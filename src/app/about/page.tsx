@@ -12,7 +12,7 @@ const page = async () => {
   
   const coverImage =
     process.env.NEXT_PUBLIC_API_URL +
-    (sectionBackground?.data?.ceoSection?.section_background?.[0]?.url || "");        
+    (sectionBackground?.data?.ceoSection?.section_background?.[0]?.url || "");         
     
     return (
       <>
@@ -33,26 +33,32 @@ const page = async () => {
           heroButtonText={data?.data?.heroSection?.heroButtonText}
           sectionType="about"
         />
-        <AboutSection
-          title={data?.data?.whoAreWeSection?.title}
-          description={data?.data?.whoAreWeSection?.description}
-          image={
-            process.env.NEXT_PUBLIC_API_URL +
-            data?.data?.whoAreWeSection?.image?.url
-          }
-          showButton={false}
-        />
-        <WhyUs
-          introTitle={data?.data?.whyUsIntroSection?.introTitle}
-          introDescription={data?.data?.whyUsIntroSection?.introDescription}
-          items={data?.data?.whyUsItemsSection}
-        />
-        <CEOSection
-          name={data?.data?.ceoSection?.name}
-          about_ceo={data?.data?.ceoSection?.about_ceo}
-          ceo_image={CEOImage}
-          section_background={coverImage} // Assuming section_background is an array
-        />
+        {data?.data?.whoAreWeSection?.hide === true ? null : (
+          <AboutSection
+            title={data?.data?.whoAreWeSection?.title}
+            description={data?.data?.whoAreWeSection?.description}
+            image={
+              process.env.NEXT_PUBLIC_API_URL +
+              data?.data?.whoAreWeSection?.image?.url
+            }
+            showButton={false}
+          />
+        )}
+        {data?.data?.whyUsIntroSection?.hide === true ? null : (
+          <WhyUs
+            introTitle={data?.data?.whyUsIntroSection?.introTitle}
+            introDescription={data?.data?.whyUsIntroSection?.introDescription}
+            items={data?.data?.whyUsItemsSection}
+          />
+        )}
+        {data?.data?.ceoSection?.hide === true ? null : (
+          <CEOSection
+            name={data?.data?.ceoSection?.name}
+            about_ceo={data?.data?.ceoSection?.about_ceo}
+            ceo_image={CEOImage}
+            section_background={coverImage} // Assuming section_background is an array
+          />
+        )}
       </>
     );
 }

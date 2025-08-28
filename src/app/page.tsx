@@ -15,7 +15,7 @@ export default async function Home() {
   const heroData = settingsData?.data?.homePageHeroSection;
   const coverImage = process.env.NEXT_PUBLIC_API_URL + heroData?.coverImage?.url;  
 
-  const aboutUsData = await fetchAboutUsData()
+  const aboutUsData = await fetchAboutUsData()  
 
   return (
     <>
@@ -30,23 +30,27 @@ export default async function Home() {
         heroButtonText={heroData?.heroButtonText}
         sectionType="home"
       />
-      <AboutSection
-        title={aboutUsData?.data?.whoAreWeSection?.title}
-        description={aboutUsData?.data?.whoAreWeSection?.description}
-        image={
-          process.env.NEXT_PUBLIC_API_URL +
-          aboutUsData?.data?.whoAreWeSection?.image?.url
-        }
-        showButton={true}
-      />
-      <WhyUs
-        introTitle={aboutUsData?.data?.whyUsIntroSection?.introTitle}
-        introDescription={
-          aboutUsData?.data?.whyUsIntroSection?.introDescription
-        }
-        items={aboutUsData?.data?.whyUsItemsSection}
-      />
-      <Services services={services} />
+      {aboutUsData?.data?.whoAreWeSection?.hide === true ? null : (
+        <AboutSection
+          title={aboutUsData?.data?.whoAreWeSection?.title}
+          description={aboutUsData?.data?.whoAreWeSection?.description}
+          image={
+            process.env.NEXT_PUBLIC_API_URL +
+            aboutUsData?.data?.whoAreWeSection?.image?.url
+          }
+          showButton={true}
+        />
+      )}
+      {aboutUsData?.data?.whyUsIntroSection?.hide === true ? null : (
+        <WhyUs
+          introTitle={aboutUsData?.data?.whyUsIntroSection?.introTitle}
+          introDescription={
+            aboutUsData?.data?.whyUsIntroSection?.introDescription
+          }
+          items={aboutUsData?.data?.whyUsItemsSection}
+        />
+      )}
+      {serviceData?.data?.hide === true ? null : <Services services={services} />}
     </>
   );
 }

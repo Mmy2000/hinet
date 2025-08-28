@@ -8,7 +8,7 @@ const page = async () => {
 
   const clientPageData = await fetchClientPageData()
   const points = clientPageData?.data?.intro_section?.points;  
-  const clientItems = clientPageData?.data?.clientItems  
+  const clientItems = clientPageData?.data?.clientItems    
 
   return (
     <>
@@ -29,20 +29,24 @@ const page = async () => {
         heroButtonText={clientPageData?.data?.heroSection?.heroButtonText}
         sectionType="clients"
       />
-      <PartnershipSection
-        title={clientPageData?.data?.intro_section?.title}
-        description={clientPageData?.data?.intro_section?.description}
-        image={
-          process.env.NEXT_PUBLIC_API_URL +
-          clientPageData?.data?.intro_section?.image?.url
-        }
-        points={points}
-      />
-      <ClientsSection
-        introText={clientPageData?.data?.client_section?.introText}
-        introSubtitle={clientPageData?.data?.client_section?.introSubtitle}
-        clientItems={clientItems}
-      />
+      {clientPageData?.data?.intro_section?.hide === true ? null : (
+        <PartnershipSection
+          title={clientPageData?.data?.intro_section?.title}
+          description={clientPageData?.data?.intro_section?.description}
+          image={
+            process.env.NEXT_PUBLIC_API_URL +
+            clientPageData?.data?.intro_section?.image?.url
+          }
+          points={points}
+        />
+      )}
+      {clientPageData?.data?.client_section?.hide === true ? null : (
+        <ClientsSection
+          introText={clientPageData?.data?.client_section?.introText}
+          introSubtitle={clientPageData?.data?.client_section?.introSubtitle}
+          clientItems={clientItems}
+        />
+      )}
     </>
   );
 }
