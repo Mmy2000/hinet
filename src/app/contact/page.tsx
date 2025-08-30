@@ -25,7 +25,11 @@ const page = async () => {
         }
         title={data?.data?.heroTitle}
         description={data?.data?.heroSubtitle}
-        showButton={data?.data?.introButtonText && data?.data?.introButtonLink ? true : false}
+        showButton={
+          data?.data?.heroButtonText && data?.data?.heroButtonLink
+            ? true
+            : false
+        }
         heroButtonLink={data?.data?.heroButtonLink || "/undefined"}
         heroButtonText={data?.data?.heroButtonText || "undefined"}
       />
